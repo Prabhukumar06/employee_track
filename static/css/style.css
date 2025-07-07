@@ -1,0 +1,10 @@
+/* Custom styles go here */
+body {
+    padding-top: 56px; /* Adjust for fixed navbar if you add one */
+}
+.form-control {
+    margin-bottom: 10px;
+}
+.btn {
+    margin-top: 10px;
+}

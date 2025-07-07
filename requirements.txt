@@ -1,0 +1,8 @@
+
+Django>=5.0
+django-crispy-forms
+crispy-bootstrap4
+gunicorn
+whitenoise
+
+reportlab

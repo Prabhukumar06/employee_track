@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Welcome to the Task Management System</h1>
+    <p class="lead">Please select your login type:</p>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Employee Login</h5>
+                    <p class="card-text">Access your tasks and track your work sessions.</p>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login as Employee</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manager Login</h5>
+                    <p class="card-text">Manage employees, assign tasks, and view team activity.</p>
+                    <a href="{% url 'manager_login' %}" class="btn btn-success">Login as Manager</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

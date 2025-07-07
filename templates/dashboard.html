@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+            <p class="lead">This is your personal dashboard.</p>
+        </div>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout & End Work</button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="mb-0">Today's Tasks</h2>
+            </div>
+            <div class="card-body">
+                {% if tasks %}
+                    <ul class="list-group">
+                        {% for task in tasks %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ task.title }}
+                                <form method="post" action="{% url 'update_task_status' task.id %}" class="form-inline">
+                                    {% csrf_token %}
+                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        {% for status_code, status_display in task.STATUS_CHOICES %}
+                                            <option value="{{ status_code }}" {% if task.status == status_code %}selected{% endif %}>{{ status_display }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No tasks for today.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="mb-0">Work Statistics</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Total work duration today:</strong> {{ total_duration }}</p>
+                <p><strong>Attendance:</strong> 
+                    {% if attendance %}
+                        Logged in at: {{ attendance.login_time|date:"H:i" }}
+                    {% else %}
+                        Not logged in today.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: task_system
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn task_system.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+    disk:
+      name: sqlite
+      mountPath: /var/data
+      sizeGB: 1
